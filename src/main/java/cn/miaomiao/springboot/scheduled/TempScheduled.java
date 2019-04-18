@@ -21,7 +21,7 @@ public class TempScheduled {
 
     @Scheduled(fixedRate = 5000)
     private void configureTasks() {
-        log.info("info");
-        log.error("error");
+//        log.info("info");
+//        log.error("error");
     }
 }
