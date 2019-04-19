@@ -23,7 +23,7 @@ public class User implements Serializable {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 姓名
@@ -40,5 +40,10 @@ public class User implements Serializable {
      */
     private String desc;
 
-
+    public User(Long id, String name, Integer sex, String desc) {
+        this.id = id;
+        this.name = name;
+        this.sex = sex;
+        this.desc = desc;
+    }
 }
