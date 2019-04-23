@@ -15,5 +15,6 @@ idea 2018.3.5
 ## 使用的idea插件如下
 1. Alibaba Java Coding Guidelines
 2. lombok
+3. MybatisX
 
 

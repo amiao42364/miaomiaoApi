@@ -1,6 +1,9 @@
 package cn.miaomiao.springboot.utils;
 
+import cn.miaomiao.springboot.constant.LogConstant;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * 生成UUID
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
  * @author miaomiao
  * @date 2019/4/18 14:46
  */
+@Slf4j
 public class UUID {
     private static final UUID INSTANCE = new UUID();
 
@@ -36,22 +40,19 @@ public class UUID {
      * 生成uuid
      */
     public Long id(){
-        Long id = null;
-        try{
-            id = snowFlake.nextId();
-        }catch (NullPointerException e){
-            snowFlake = getSnowFlake();
-            return id();
-        }catch (Exception e){
-            e.printStackTrace();
+        if(snowFlake == null){
+            init();
         }
-        return id;
+        return snowFlake.nextId();
     }
 
-    private synchronized SnowFlake getSnowFlake(){
-        if(snowFlake == null){
-            snowFlake = new SnowFlake(dataCenterId, machineId);
+    private synchronized void init(){
+        String dataCenterStr = PropertiesUtil.getInstance().get("uuid.dataCenterId");
+        String machineStr = PropertiesUtil.getInstance().get("uuid.machineId");
+        try{
+            this.snowFlake = new SnowFlake(Long.parseLong(dataCenterStr), Long.parseLong(machineStr));
+        }catch (NumberFormatException e){
+            log.error(LogConstant.UUID_EXCEPTION + "[dataCenterID]" + dataCenterStr + "machineID" + machineStr);
         }
-        return snowFlake;
     }
 }

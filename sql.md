@@ -10,3 +10,22 @@
 第三范式(确保每列都和主键列直接相关,而不是间接相关)。  
 
 ## mysql ddl
+#### user_login
+    CREATE TABLE `user_login` (
+      `id` int(5) NOT NULL COMMENT 'id',
+      `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '登录名(可以中文)',
+      `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码',
+      `mobile` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '手机号',
+      `mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '邮箱',
+      `role` tinyint(2) NOT NULL DEFAULT '2' COMMENT '角色：1：管理员，2：普通用户',
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户登录表';
+    
+#### role
+    CREATE TABLE `role` (
+      `id` int(8) NOT NULL,
+      `role_id` tinyint(2) NOT NULL COMMENT '角色ID',
+      `role_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '角色说明',
+      `authority` tinyint(2) NOT NULL DEFAULT '0' COMMENT '权限等级：0-9逐级递增',
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色权限表';
