@@ -1,5 +1,5 @@
 ## 一个springboot做的api模板
-用来记录自己学习使用springboot的历程
+我是个小萌新啊，学习记录一下springboot的一些东西
 
 ### 开发工具
 

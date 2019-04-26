@@ -24,8 +24,21 @@ public interface UserService {
      */
     List getUsersByIds(List<Long> ids);
 
+    UserLogin get(UserLogin user);
+
     /**
-     * 新增用户
+     * 注册用户
+     * @param username username
+     * @param password password
+     * @return boolean
      */
-    void createUser(UserLogin user);
+    boolean register(String username, String password);
+
+    /**
+     * 登录
+     * @param user user
+     * @param password password
+     * @return token
+     */
+    String auth(UserLogin user, String password);
 }

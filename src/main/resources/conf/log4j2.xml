@@ -103,7 +103,7 @@
         <Logger name="org.mybatis" level="INFO"/>
 
         <!--自定义日志-->
-        <Logger name="cn.miaomiao.demo.log2" level="info" additivity="false">
+        <Logger name="api_info" level="info">
             <appender-ref ref="Console"/>
             <appender-ref ref="ApiDetailMsg"/>
         </Logger>

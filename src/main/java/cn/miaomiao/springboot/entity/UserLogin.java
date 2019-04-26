@@ -31,6 +31,11 @@ public class UserLogin{
     private String password;
 
     /**
+     * 密码盐值
+     */
+    private String salt;
+
+    /**
      * 手机号
      */
     private String mobile;
@@ -44,4 +49,22 @@ public class UserLogin{
      * 角色：1：管理员，2：普通用户
      */
     private Integer role;
+
+    public UserLogin(Long id){
+        this.id = id;
+    }
+
+    public UserLogin(String username){
+        this.username = username;
+    }
+
+    public UserLogin(Long id, String username, String password, String salt, String mobile, String mail, Integer role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
+        this.mobile = mobile;
+        this.mail = mail;
+        this.role = role;
+    }
 }

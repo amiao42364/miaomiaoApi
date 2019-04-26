@@ -6,23 +6,29 @@ package cn.miaomiao.springboot.constant;
  * @author miaomiao
  * @date 2019/4/18 18:24
  */
+@SuppressWarnings("unused")
 public enum ResponseCode {
     /**
      * 成功
      */
     SUCCESS(100, "成功"),
     /**
-     * 用户名或密码错误
+     * 用户不存在或账号密码错误
      */
-    USERNAME_OR_PASSWORD_ERROR(-1001, "用户名或密码错误"),
-    /**
-     * 用户不存在
-     */
-    USER_NOT_FOUND(-1002, "用户不存在"),
+    USER_NOT_FOUND_OR_PASSWORD_ERROR(1001, "用户不存在"),
     /**
      * 用户未登录
      */
-    USER_NOT_LOGIN(-1003, "用户未登录");
+    USER_NOT_LOGIN(1002, "用户未登录"),
+    /**
+     * 参数错误
+     */
+    PARAM_ERROR(2000, "参数错误"),
+    /**
+     * 参数错误
+     */
+    UNKNOWN_ERROR(9999, "未知错误");
+
     /**
      * 返回码
      */

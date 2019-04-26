@@ -1,6 +1,7 @@
 package cn.miaomiao.springboot.utils;
 
 import cn.miaomiao.springboot.constant.LogConstant;
+import cn.miaomiao.springboot.constant.RedisConstant;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -21,10 +22,6 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 @Slf4j
 public class RedisUtil {
-    /**
-     * redis默认缓存时间
-     */
-    private static final Long DEFAULT_TIMEOUT = 60L * 30L;
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
@@ -53,6 +50,13 @@ public class RedisUtil {
      */
     public Boolean hasKey(String key) {
         return stringRedisTemplate.hasKey(key);
+    }
+
+    /**
+     * 设置过期时间
+     */
+    public Boolean expire(String key, long timeout) {
+        return expire(key, timeout, TimeUnit.SECONDS);
     }
 
     /**
@@ -102,7 +106,7 @@ public class RedisUtil {
      * 设置指定key的值
      */
     public void set(String key, String value) {
-        set(key, value, DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        set(key, value, RedisConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
     }
 
     /**
@@ -157,7 +161,7 @@ public class RedisUtil {
      * 缓存对象
      */
     public void setObject(String key, Object obj) {
-        setObject(key, obj, DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        setObject(key, obj, RedisConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
     }
 
     /**
@@ -201,7 +205,7 @@ public class RedisUtil {
     }
 
     public void hPut(String key, String hashKey, String value) {
-        hPut(key, hashKey, value, DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        hPut(key, hashKey, value, RedisConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
     }
 
     public void hPut(String key, String hashKey, String value, Long timeout) {
@@ -214,7 +218,7 @@ public class RedisUtil {
     }
 
     public void hPutAll(String key, Map<String, String> maps) {
-        hPutAll(key, maps, DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        hPutAll(key, maps, RedisConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
     }
 
     public void hPutAll(String key, Map<String, String> maps, Long timeout) {
@@ -306,7 +310,7 @@ public class RedisUtil {
      * 写入集合
      */
     public <T> Long lSet(String key, List<T> value) {
-        return lSet(key, value, DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        return lSet(key, value, RedisConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
     }
 
     /**

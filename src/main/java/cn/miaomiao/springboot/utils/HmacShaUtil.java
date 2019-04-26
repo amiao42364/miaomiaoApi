@@ -2,6 +2,7 @@ package cn.miaomiao.springboot.utils;
 
 import cn.miaomiao.springboot.constant.AlgorithmEnum;
 import cn.miaomiao.springboot.constant.LogConstant;
+import cn.miaomiao.springboot.exception.HashException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.KeyGenerator;
@@ -40,14 +41,14 @@ public class HmacShaUtil {
             return HexUtil.bytesToHex(key.getEncoded());
         } catch (NoSuchAlgorithmException e) {
             log.error(LogConstant.HMAC_EXCEPTION + "[type：createHmacKey]" + e.getMessage());
+            throw new HashException("[hmcSha异常]");
         }
-        return null;
     }
 
     /**
      * 使用 HMAC-SHA1 签名方法对msg进行签名
      */
-    public String encrypt(String msg, String key) {
+    public String encrypt(String msg, String key) throws HashException{
         return encrypt(msg, AlgorithmEnum.HMACSHA1.getAlgorithm(), key);
     }
 
@@ -64,7 +65,7 @@ public class HmacShaUtil {
             return HexUtil.bytesToHex(output);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             log.error(LogConstant.HMAC_EXCEPTION + "[algorithm：" + algorithm + "][msg：" + msg + "]：" + e.getMessage());
+            throw new HashException("[hmcSha异常]");
         }
-        return null;
     }
 }
