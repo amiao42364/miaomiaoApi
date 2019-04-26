@@ -95,6 +95,12 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.57</version>
 		</dependency>
+		<!--将拼音转换为汉字-->
+		<dependency>
+			<groupId>com.belerweb</groupId>
+			<artifactId>pinyin4j</artifactId>
+			<version>2.5.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -1,5 +1,11 @@
-## 一个springboot做的api模板
+## 一个科举答题器之类的框架
 我是个小萌新啊，学习记录一下springboot的一些东西
+
+得给自己定个目标，就来做一个科举之类的题库吧-_-
+
+netty+websocket搞定，下面去研究搜索算法，Elasticsearch之类的了
+
+
 
 ### 开发工具
 

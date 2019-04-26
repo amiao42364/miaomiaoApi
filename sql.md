@@ -25,9 +25,32 @@
     
 #### role
     CREATE TABLE `role` (
-      `id` int(8) NOT NULL,
+      `id` bigint(16) NOT NULL,
       `role_id` tinyint(2) NOT NULL COMMENT '角色ID',
       `role_desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '角色说明',
       `authority` tinyint(2) NOT NULL DEFAULT '0' COMMENT '权限等级：0-9逐级递增',
       PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色权限表';
+    
+#### game_type
+    CREATE TABLE `game_type` (
+      `id` bigint(16) NOT NULL,
+      `game_flag` int(8) DEFAULT NULL COMMENT '游戏标记',
+      `game_title` varchar(255) DEFAULT NULL COMMENT '游戏名称',
+      `game_desc` varchar(255) DEFAULT NULL COMMENT '描述',
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `game_falg` (`game_flag`) USING BTREE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='支持的游戏类型';
+
+#### question_bank
+    CREATE TABLE `question_bank` (
+      `id` bigint(16) NOT NULL,
+      `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '题目',
+      `title_spell` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '题目拼音',
+      `answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '答案',
+      `type` tinyint(4) NOT NULL COMMENT '游戏类型，指哪个游戏',
+      `creator` bigint(16) NOT NULL COMMENT '创建人id',
+      `create_time` datetime NOT NULL COMMENT '创建时间',
+      PRIMARY KEY (`id`),
+      KEY `title_spell` (`title_spell`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
