@@ -1,12 +1,19 @@
 package cn.miaomiao.springboot.service.impl;
 
+import cn.miaomiao.springboot.constant.LogConstant;
 import cn.miaomiao.springboot.entity.es.BaseEsData;
 import cn.miaomiao.springboot.entity.es.NiShuiHan;
 import cn.miaomiao.springboot.service.KeJuTiKuService;
-import com.google.common.collect.Lists;
+import cn.miaomiao.springboot.utils.EsRestUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -14,10 +21,8 @@ import java.util.List;
  * @date 2019/4/29 11:44
  */
 @Service
+@Slf4j
 public class KeJuTiKuServiceImpl implements KeJuTiKuService {
-
-//    @Resource
-//    private KeJuRepository repository;
 
     /**
      * 查询
@@ -27,8 +32,15 @@ public class KeJuTiKuServiceImpl implements KeJuTiKuService {
      */
     @Override
     public List<BaseEsData> search(String title, int gameFlag) {
-//        Iterable<NiShuiHan> listIt = repository.findAll();
-//        return Lists.newArrayList(listIt);
+        SearchRequest searchRequest = new SearchRequest();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+        searchRequest.source(searchSourceBuilder);
+        try {
+            SearchResponse res = EsRestUtil.getClient().search(searchRequest, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            log.error(LogConstant.ES_EXCEPTION + e.getMessage());
+        }
         return null;
     }
 
