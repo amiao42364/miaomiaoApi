@@ -33,6 +33,8 @@ public class KeJuTiKuServiceImpl implements KeJuTiKuService {
     @Override
     public List<BaseEsData> search(String title, int gameFlag) {
         SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("kejutiku");
+        searchRequest.types("nishuihan");
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.matchAllQuery());
         searchRequest.source(searchSourceBuilder);
