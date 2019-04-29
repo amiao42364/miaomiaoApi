@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cn.miaomiao</groupId>
-	<artifactId>springboot</artifactId>
+	<artifactId>kejutiku</artifactId>
 	<version>0.0.2</version>
 	<packaging>war</packaging>
 	<name>springboot</name>
@@ -20,7 +20,7 @@
 	</properties>
 
 	<dependencies>
-		<!-- springboot -->
+		<!-- kejutiku -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
