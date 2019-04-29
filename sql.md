@@ -1,14 +1,4 @@
 
-## 数据库设计三大范式
-1. 如果数据库表中的所有字段值都是不可分解的原子值，就说明该数据库表满足了第一范式;
-2. 确保数据库表中的每一列都和主键相关，而不能只与主键的某一部分相关（主要针对联合主键而言）也就是说在一个数据库表中，一个表中只能保存一种数据，不可以把多种数据保存在同一张数据库表中；
-3. 第三范式需要确保数据表中的每一列数据都和主键直接相关，而不能间接相关。
-
-### 总结一下，就是：
-第一范式(确保每列保持原子性)；  
-第二范式(确保表中的每列都和主键相关)；  
-第三范式(确保每列都和主键列直接相关,而不是间接相关)。  
-
 ## mysql ddl
 #### user_login
     CREATE TABLE `user_login` (
@@ -34,23 +24,13 @@
     
 #### game_type
     CREATE TABLE `game_type` (
-      `id` bigint(16) NOT NULL,
-      `game_flag` int(8) DEFAULT NULL COMMENT '游戏标记',
-      `game_title` varchar(255) DEFAULT NULL COMMENT '游戏名称',
-      `game_desc` varchar(255) DEFAULT NULL COMMENT '描述',
-      PRIMARY KEY (`id`),
-      UNIQUE KEY `game_falg` (`game_flag`) USING BTREE
+     `id` bigint(16) NOT NULL,
+     `game_flag` int(8) NOT NULL COMMENT '游戏标记',
+     `game_type` varchar(255) NOT NULL COMMENT '对应es库的type',
+     `game_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '游戏名称',
+     `game_desc` varchar(255) DEFAULT NULL COMMENT '描述',
+     PRIMARY KEY (`id`),
+     UNIQUE KEY `game_falg` (`game_flag`) USING BTREE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='支持的游戏类型';
+    
 
-#### question_bank
-    CREATE TABLE `question_bank` (
-      `id` bigint(16) NOT NULL,
-      `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '题目',
-      `title_spell` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '题目拼音',
-      `answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '答案',
-      `type` tinyint(4) NOT NULL COMMENT '游戏类型，指哪个游戏',
-      `creator` bigint(16) NOT NULL COMMENT '创建人id',
-      `create_time` datetime NOT NULL COMMENT '创建时间',
-      PRIMARY KEY (`id`),
-      KEY `title_spell` (`title_spell`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

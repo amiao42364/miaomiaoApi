@@ -23,5 +23,5 @@ public final class NettyConstant {
     /**
      * URL后缀地址
      */
-    public static final String WEBSOCKET_PATH = "/ws";
+    public static final String WEBSOCKET_PATH = "/ws/keju";
 }

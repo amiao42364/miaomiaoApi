@@ -67,7 +67,7 @@ public class NettyBootstrap {
                 .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
-                    protected void initChannel(SocketChannel socketChannel) throws Exception {
+                    protected void initChannel(SocketChannel socketChannel) {
                         // HttpServerCodec：将请求和应答消息解码为HTTP消息
                         socketChannel.pipeline().addLast(NettyConstant.HTTP_CODE, new HttpServerCodec());
                         // HttpObjectAggregator：将HTTP消息的多个部分合成一条完整的HTTP消息

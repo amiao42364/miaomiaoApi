@@ -10,4 +10,5 @@ public class LogConstant {
     public static final String HMAC_EXCEPTION = "[hmac异常]：";
     public static final String CONFIG_EXCEPTION = "[配置文件异常]：";
     public static final String UUID_EXCEPTION = "[UUID异常]：";
+    public static final String PINYIN_EXCEPTION = "[pinyin异常]：";
 }

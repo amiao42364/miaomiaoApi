@@ -1,7 +1,7 @@
 package cn.miaomiao.springboot.utils;
 
 import cn.miaomiao.springboot.entity.UserLogin;
-import cn.miaomiao.springboot.mapper.UserLoginMapper;
+import cn.miaomiao.springboot.dao.UserLoginDao;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,12 +19,12 @@ import java.util.List;
 @SpringBootTest
 public class MybatisPlusTest {
     @Autowired
-    private UserLoginMapper userLoginMapper;
+    private UserLoginDao userLoginDao;
 
     @Test
     public void testSelect() {
         System.out.println(("----- selectAll method test ------"));
-        List<UserLogin> userList = userLoginMapper.selectList(null);
+        List<UserLogin> userList = userLoginDao.selectList(null);
         Assert.assertEquals(1, userList.size());
         userList.forEach(System.out::println);
     }

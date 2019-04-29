@@ -2,7 +2,7 @@ package cn.miaomiao.springboot.service.impl;
 
 import cn.miaomiao.springboot.constant.RedisConstant;
 import cn.miaomiao.springboot.exception.HashException;
-import cn.miaomiao.springboot.mapper.UserLoginMapper;
+import cn.miaomiao.springboot.dao.UserLoginDao;
 import cn.miaomiao.springboot.entity.UserLogin;
 import cn.miaomiao.springboot.service.UserService;
 import cn.miaomiao.springboot.utils.*;
@@ -20,7 +20,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    private UserLoginMapper userLoginMapper;
+    private UserLoginDao userLoginDao;
 
     @Resource
     private RedisUtil redisUtil;
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserLogin getUserById(Long id) {
-        return userLoginMapper.selectById(id);
+        return userLoginDao.selectById(id);
     }
 
     /**
@@ -47,14 +47,14 @@ public class UserServiceImpl implements UserService {
         }
         QueryWrapper<UserLogin> qw = new QueryWrapper<>();
         qw.in("id", ids);
-        return userLoginMapper.selectList(qw);
+        return userLoginDao.selectList(qw);
     }
 
     @Override
     public UserLogin get(UserLogin user) {
         QueryWrapper<UserLogin> qw = getQueryWrapper(user);
         qw.last("limit 1");
-        return userLoginMapper.selectOne(qw);
+        return userLoginDao.selectOne(qw);
     }
 
     /**
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
         }catch (HashException e){
             return false;
         }
-        return userLoginMapper.insert(user) > 0;
+        return userLoginDao.insert(user) > 0;
     }
 
     /**

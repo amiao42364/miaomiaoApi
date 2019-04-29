@@ -87,7 +87,13 @@
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
-			<version>4.1.35.Final</version>
+			<version>4.1.34.Final</version>
+		</dependency>
+
+		<!--elasticsearch-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
 		</dependency>
 
 		<!-- 其他 -->
@@ -102,6 +108,13 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.57</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>27.1-jre</version>
+		</dependency>
+
 		<!--将拼音转换为汉字-->
 		<dependency>
 			<groupId>com.belerweb</groupId>
