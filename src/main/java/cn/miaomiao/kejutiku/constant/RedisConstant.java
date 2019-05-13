@@ -14,4 +14,9 @@ public class RedisConstant {
      * token缓存时间
      */
     public static final Long TOKEN_TIMEOUT = 60L * 30L;
+
+    /**
+     * 游戏类型对应elasticsearch索引
+     */
+    public static final String GAMEFLAG_INDEX = "gameFlag_";
 }

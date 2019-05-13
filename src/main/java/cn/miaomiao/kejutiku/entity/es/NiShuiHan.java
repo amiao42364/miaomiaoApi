@@ -28,22 +28,12 @@ public class NiShuiHan implements BaseEsData{
     private String answer;
 
     /**
-     * 题目对应的拼音
-     */
-    private String key;
-
-    /**
      * 创建时间
      */
     private LocalDateTime createTime;
 
     /**
-     * 创建人id
-     */
-    private Long createId;
-
-    /**
-     * 创建人名称
+     * 创建人
      */
     private String createName;
 }

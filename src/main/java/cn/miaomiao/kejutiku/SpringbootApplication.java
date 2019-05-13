@@ -22,9 +22,6 @@ public class SpringbootApplication implements CommandLineRunner {
     private NettyBootstrap nettyBootstrap;
 
     public static void main(String[] args) {
-        // 解决netty和es冲突
-        System.setProperty("es.set.netty.runtime.available.processors", "false");
-
         SpringApplication.run(SpringbootApplication.class, args);
     }
 

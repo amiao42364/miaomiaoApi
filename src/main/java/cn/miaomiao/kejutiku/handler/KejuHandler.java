@@ -29,8 +29,6 @@ import java.util.List;
 @ChannelHandler.Sharable
 public class KejuHandler extends BaseHandler {
 
-    private final static String WS_SEARCH = "wsSearch";
-
     @Resource
     private KeJuTiKuService keJuTiKuService;
 
@@ -57,11 +55,9 @@ public class KejuHandler extends BaseHandler {
             ctx.channel().writeAndFlush(new TextWebSocketFrame(JSONObject.toJSONString(res)));
             return;
         }
-        if(WS_SEARCH.equals(request.getType())){
-            String title = request.getContent();
-            List<BaseEsData> list = keJuTiKuService.search(title, 1);
-            ctx.channel().writeAndFlush(new TextWebSocketFrame(JSONObject.toJSONString(list)));
-        }
+
+        List<BaseEsData> list = keJuTiKuService.search(request.getContent(), request.getType());
+        ctx.channel().writeAndFlush(new TextWebSocketFrame(JSONObject.toJSONString(list)));
     }
 
     /**
@@ -82,5 +78,21 @@ public class KejuHandler extends BaseHandler {
         } else {
             handShaker.handshake(ctx.channel(), req);
         }
+    }
+
+    /**
+     * 不活跃的通道 说明用户失去连接
+     */
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) {
+        super.channelInactive(ctx);
+    }
+
+    /**
+     * 超过心跳时间没有收到消息
+     */
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
+        super.userEventTriggered(ctx, evt);
     }
 }

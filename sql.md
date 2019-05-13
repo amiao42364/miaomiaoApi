@@ -26,7 +26,7 @@
     CREATE TABLE `game_type` (
      `id` bigint(16) NOT NULL,
      `game_flag` int(8) NOT NULL COMMENT '游戏标记',
-     `game_type` varchar(255) NOT NULL COMMENT '对应es库的type',
+     `game_index` varchar(255) NOT NULL COMMENT '对应es库的index',
      `game_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '游戏名称',
      `game_desc` varchar(255) DEFAULT NULL COMMENT '描述',
      PRIMARY KEY (`id`),

@@ -56,14 +56,7 @@ public class RedisUtil {
      * 设置过期时间
      */
     public Boolean expire(String key, long timeout) {
-        return expire(key, timeout, TimeUnit.SECONDS);
-    }
-
-    /**
-     * 设置过期时间
-     */
-    public Boolean expire(String key, long timeout, TimeUnit unit) {
-        return stringRedisTemplate.expire(key, timeout, unit);
+        return stringRedisTemplate.expire(key, RandomUtil.getRandomSecond(timeout), TimeUnit.SECONDS);
     }
 
     /**
@@ -106,21 +99,14 @@ public class RedisUtil {
      * 设置指定key的值
      */
     public void set(String key, String value) {
-        set(key, value, RedisConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        set(key, value, RedisConstant.DEFAULT_TIMEOUT);
     }
 
     /**
      * 设置指定key的值
      */
     public void set(String key, String value, Long timeout) {
-        stringRedisTemplate.opsForValue().set(key, value, timeout, TimeUnit.SECONDS);
-    }
-
-    /**
-     * 设置指定key的值
-     */
-    public void set(String key, String value, Long timeout, TimeUnit unit) {
-        stringRedisTemplate.opsForValue().set(key, value, timeout, unit);
+        stringRedisTemplate.opsForValue().set(key, value, RandomUtil.getRandomSecond(timeout), TimeUnit.SECONDS);
     }
 
     /**
@@ -161,23 +147,16 @@ public class RedisUtil {
      * 缓存对象
      */
     public void setObject(String key, Object obj) {
-        setObject(key, obj, RedisConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        setObject(key, obj, RedisConstant.DEFAULT_TIMEOUT);
     }
 
     /**
      * 缓存对象
      */
     public void setObject(String key, Object obj, Long timeout) {
-        setObject(key, obj, timeout, TimeUnit.SECONDS);
-    }
-
-    /**
-     * 缓存对象
-     */
-    public void setObject(String key, Object obj, Long timeout, TimeUnit unit) {
         try {
             String value = JSONObject.toJSONString(obj);
-            stringRedisTemplate.opsForValue().set(key, value, timeout, unit);
+            stringRedisTemplate.opsForValue().set(key, value, RandomUtil.getRandomSecond(timeout), TimeUnit.SECONDS);
         } catch (Exception e) {
             log.error(LogConstant.REDIS_EXCEPTION + e.getMessage());
         }
@@ -205,29 +184,21 @@ public class RedisUtil {
     }
 
     public void hPut(String key, String hashKey, String value) {
-        hPut(key, hashKey, value, RedisConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        hPut(key, hashKey, value, RedisConstant.DEFAULT_TIMEOUT);
     }
 
     public void hPut(String key, String hashKey, String value, Long timeout) {
-        hPut(key, hashKey, value, timeout, TimeUnit.SECONDS);
-    }
-
-    public void hPut(String key, String hashKey, String value, Long timeout, TimeUnit unit) {
         stringRedisTemplate.opsForHash().put(key, hashKey, value);
-        stringRedisTemplate.expire(key, timeout, unit);
+        stringRedisTemplate.expire(key, RandomUtil.getRandomSecond(timeout), TimeUnit.SECONDS);
     }
 
     public void hPutAll(String key, Map<String, String> maps) {
-        hPutAll(key, maps, RedisConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        hPutAll(key, maps, RedisConstant.DEFAULT_TIMEOUT);
     }
 
     public void hPutAll(String key, Map<String, String> maps, Long timeout) {
-        hPutAll(key, maps, timeout, TimeUnit.SECONDS);
-    }
-
-    public void hPutAll(String key, Map<String, String> maps, Long timeout, TimeUnit unit) {
         stringRedisTemplate.opsForHash().putAll(key, maps);
-        stringRedisTemplate.expire(key, timeout, unit);
+        stringRedisTemplate.expire(key, RandomUtil.getRandomSecond(timeout), TimeUnit.SECONDS);
     }
 
     /**
@@ -310,20 +281,13 @@ public class RedisUtil {
      * 写入集合
      */
     public <T> Long lSet(String key, List<T> value) {
-        return lSet(key, value, RedisConstant.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        return lSet(key, value, RedisConstant.DEFAULT_TIMEOUT);
     }
 
     /**
      * 写入集合
      */
     public <T> Long lSet(String key, List<T> value, long timeout) {
-        return lSet(key, value, timeout, TimeUnit.SECONDS);
-    }
-
-    /**
-     * 写入集合
-     */
-    public <T> Long lSet(String key, List<T> value, long timeout, TimeUnit unit) {
         List<String> val;
         try {
             val = value.stream().map(JSONObject::toJSONString).collect(Collectors.toList());
@@ -332,7 +296,7 @@ public class RedisUtil {
             return null;
         }
         Long result = stringRedisTemplate.opsForList().rightPushAll(key, val);
-        stringRedisTemplate.expire(key, timeout, unit);
+        stringRedisTemplate.expire(key, RandomUtil.getRandomSecond(timeout), TimeUnit.SECONDS);
         return result;
     }
 

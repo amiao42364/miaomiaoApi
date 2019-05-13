@@ -17,12 +17,12 @@ public interface KeJuTiKuService {
      * @param gameFlag  游戏类型
      * @return list
      */
-    List<BaseEsData> search(String title, int gameFlag);
+    List<BaseEsData> search(String title, String gameFlag);
 
     /**
      * 向es写入数据
      * @param obj obj
      * @param gameFlag 游戏类型
      */
-    void save(NiShuiHan obj, int gameFlag);
+    void save(NiShuiHan obj, String gameFlag);
 }

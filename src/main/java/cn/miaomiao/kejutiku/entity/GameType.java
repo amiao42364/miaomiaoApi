@@ -28,9 +28,9 @@ public class GameType implements Serializable {
     private Integer gameFlag;
 
     /**
-     * 对应es库的type
+     * 对应es库的index
      */
-    private String gameType;
+    private String gameIndex;
 
     /**
      * 游戏名称
