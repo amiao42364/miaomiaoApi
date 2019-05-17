@@ -1,5 +1,6 @@
 package cn.miaomiao.kejutiku.config;
 
+import cn.miaomiao.kejutiku.filter.AuthIntercept;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;

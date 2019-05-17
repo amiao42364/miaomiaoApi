@@ -3,13 +3,13 @@ package cn.miaomiao.kejutiku.controller;
 import cn.miaomiao.kejutiku.constant.ResponseCode;
 import cn.miaomiao.kejutiku.entity.UserLogin;
 import cn.miaomiao.kejutiku.model.BaseResponse;
+import cn.miaomiao.kejutiku.model.UserVo;
 import cn.miaomiao.kejutiku.service.UserService;
 import cn.miaomiao.kejutiku.utils.VerifyEmptyUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @author miaomiao
@@ -25,8 +25,8 @@ public class UserController {
     /**
      * 注册接口，没钱买证书就只能是http了
      */
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public BaseResponse register(String username, String password) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public BaseResponse register(@RequestParam String username, @RequestParam String password) {
         if(VerifyEmptyUtil.isEmpty(username) || VerifyEmptyUtil.isEmpty(password)){
             return BaseResponse.error(ResponseCode.PARAM_ERROR);
         }
@@ -41,16 +41,13 @@ public class UserController {
     /**
      * 登录接口
      */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public BaseResponse login(String username, String password){
-        if(VerifyEmptyUtil.isEmpty(username) || VerifyEmptyUtil.isEmpty(password)){
-            return BaseResponse.error(ResponseCode.PARAM_ERROR);
-        }
-        UserLogin user = userService.get(new UserLogin(username));
-        if(user == null){
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public BaseResponse login(@RequestBody @Valid UserVo user){
+        UserLogin login = userService.get(new UserLogin(user.getUsername()));
+        if(login == null){
             return BaseResponse.error(ResponseCode.USER_NOT_FOUND_OR_PASSWORD_ERROR);
         }
-        String token = userService.auth(user, password);
+        String token = userService.auth(login, user.getPassword());
         if(VerifyEmptyUtil.isEmpty(token)){
             return BaseResponse.error(ResponseCode.USER_NOT_FOUND_OR_PASSWORD_ERROR);
         }

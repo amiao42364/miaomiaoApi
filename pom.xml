@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cn.miaomiao</groupId>
-	<artifactId>kejutiku</artifactId>
+	<artifactId>miaomiaoApi</artifactId>
 	<version>0.0.3</version>
 	<packaging>war</packaging>
-	<name>kejutiku</name>
+	<name>api</name>
 	<description>a project for keju</description>
 
 	<properties>
@@ -135,6 +135,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>api</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

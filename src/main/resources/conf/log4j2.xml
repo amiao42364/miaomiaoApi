@@ -5,9 +5,9 @@
 <Configuration status="WARN" monitorInterval="30">
     <!--全局属性-->
     <Properties>
-        <Property name="APP_NAME">springboot_api</Property>
+        <Property name="APP_NAME">api</Property>
         <!--设置日志文件存储路径为tomcat/logs/${APP_NAME}-->
-        <!--<Property name="LOG_FILE_PATH">${sys:catalina.home}/logs/${APP_NAME}</Property>-->
+        <!--<Property name="LOG_FILE_PATH">/home/miaomiao/logs/tomcat/${APP_NAME}</Property>-->
         <Property name="LOG_FILE_PATH">d:/logs/${APP_NAME}</Property>
         <!--设置日志输出格式-->
         <Property name="PATTERN_FORMAT">%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n</Property>

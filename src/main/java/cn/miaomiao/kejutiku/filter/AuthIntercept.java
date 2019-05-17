@@ -1,5 +1,6 @@
-package cn.miaomiao.kejutiku.config;
+package cn.miaomiao.kejutiku.filter;
 
+import cn.miaomiao.kejutiku.config.AuthConfig;
 import cn.miaomiao.kejutiku.constant.RedisConstant;
 import cn.miaomiao.kejutiku.constant.ResponseCode;
 import cn.miaomiao.kejutiku.entity.UserLogin;
