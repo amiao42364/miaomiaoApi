@@ -41,7 +41,7 @@ public class HmacShaUtil {
             return HexUtil.bytesToHex(key.getEncoded());
         } catch (NoSuchAlgorithmException e) {
             log.error(LogConstant.HMAC_EXCEPTION + "[type：createHmacKey]" + e.getMessage());
-            throw new HashException("[hmcSha异常]");
+            throw new HashException(LogConstant.HMAC_EXCEPTION);
         }
     }
 
@@ -65,7 +65,7 @@ public class HmacShaUtil {
             return HexUtil.bytesToHex(output);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             log.error(LogConstant.HMAC_EXCEPTION + "[algorithm：" + algorithm + "][msg：" + msg + "]：" + e.getMessage());
-            throw new HashException("[hmcSha异常]");
+            throw new HashException(LogConstant.HMAC_EXCEPTION);
         }
     }
 }

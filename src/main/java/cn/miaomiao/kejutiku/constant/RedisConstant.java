@@ -13,10 +13,15 @@ public class RedisConstant {
     /**
      * token缓存时间
      */
-    public static final Long TOKEN_TIMEOUT = 60L * 30L;
+    public static final Long TOKEN_TIMEOUT = 60L * 60L * 24L * 7L;
+
+    /**
+     * token前缀
+     */
+    public static final String TOKEN_KEY_PREFIX = "miaomiaoToken_";
 
     /**
      * 游戏类型对应elasticsearch索引
      */
-    public static final String GAMEFLAG_INDEX = "gameFlag_";
+    public static final String GAME_FLAG_INDEX = "gameFlag_";
 }

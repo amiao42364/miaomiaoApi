@@ -1,29 +1,36 @@
-package cn.miaomiao.kejutiku.model;
+package cn.miaomiao.kejutiku.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * <p>
+ * 用户信息表
+ * </p>
+ *
  * @author miaomiao
- * @date 2019/5/17 17:29
+ * @since 2019-05-17
  */
 @Data
-public class UserVo {
-    /**
-     * 登录名(可以中文)
-     */
-    private String username;
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class UserInfo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
-     * 手机号
+     * id
      */
-    private String mobile;
+    private Long id;
 
     /**
-     * 邮箱
+     * 用户登录表id
      */
-    private String mail;
+    private Long userId;
 
     /**
      * 昵称，默认为用户名
@@ -69,4 +76,8 @@ public class UserVo {
      * 注册时间
      */
     private Date created;
+
+    public UserInfo(Long id) {
+        this.id = id;
+    }
 }

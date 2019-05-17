@@ -14,7 +14,8 @@ import java.util.Properties;
  */
 @Slf4j
 public class PropertiesUtil {
-    private static final String APPLICATION_PROPERTIES = "application.properties";
+    private static final String SPRINGBOOT_DEFAULT_CONFIG = "application.properties";
+    private static final String SPRINGBOOT_DEFAULT_KEY = "spring.profiles.active";
     private Properties prop;
 
     private PropertiesUtil() {
@@ -30,9 +31,13 @@ public class PropertiesUtil {
      * 读取配置文件初始化
      */
     private void init() {
-        ClassPathResource resource = new ClassPathResource(APPLICATION_PROPERTIES);
+        ClassPathResource resource = new ClassPathResource(SPRINGBOOT_DEFAULT_CONFIG);
         try {
             prop = PropertiesLoaderUtils.loadProperties(resource);
+            if(VerifyEmptyUtil.isNotEmpty(prop.getProperty(SPRINGBOOT_DEFAULT_KEY))){
+                resource = new ClassPathResource("application-" + prop.getProperty(SPRINGBOOT_DEFAULT_KEY) + ".properties");
+                prop = PropertiesLoaderUtils.loadProperties(resource);
+            }
         } catch (IOException e) {
             log.error(LogConstant.CONFIG_EXCEPTION + "[type：init]" + e.getMessage());
         }

@@ -1,5 +1,6 @@
 package cn.miaomiao.kejutiku.utils;
 
+import cn.miaomiao.kejutiku.constant.LogConstant;
 import cn.miaomiao.kejutiku.constant.StringConstant;
 import cn.miaomiao.kejutiku.exception.HashException;
 import org.slf4j.Logger;
@@ -54,8 +55,8 @@ public class HashUtil {
             messageDigest = MessageDigest.getInstance(type);
             bytes = messageDigest.digest(msg.getBytes(StandardCharsets.UTF_8));
         } catch (NoSuchAlgorithmException | NullPointerException e) {
-            log.error("[hash异常][type：" + type + "][msg：" + msg + "]：" + e.getMessage());
-            throw new HashException("[hash异常]");
+            log.error(LogConstant.HASH_EXCEPTION + "[type：" + type + "][msg：" + msg + "]：" + e.getMessage());
+            throw new HashException(LogConstant.HASH_EXCEPTION);
         }
         return HexUtil.bytesToHex(bytes);
     }

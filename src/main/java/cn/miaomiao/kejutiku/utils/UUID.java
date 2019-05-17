@@ -51,7 +51,7 @@ public class UUID {
         try{
             this.snowFlake = new SnowFlake(Long.parseLong(dataCenterStr), Long.parseLong(machineStr));
         }catch (NumberFormatException e){
-            log.error(LogConstant.UUID_EXCEPTION + "[dataCenterID]" + dataCenterStr + "machineID" + machineStr);
+            log.error(LogConstant.UUID_EXCEPTION + "[dataCenterID]" + dataCenterStr + "[machineID]" + machineStr);
         }
     }
 }

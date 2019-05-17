@@ -30,7 +30,7 @@ public class CommonUtil {
      * @return 索引
      */
     public String getIndices(String gameFlag) {
-        String key = RedisConstant.GAMEFLAG_INDEX + gameFlag;
+        String key = RedisConstant.GAME_FLAG_INDEX + gameFlag;
         String index = redisUtil.get(key);
         if (VerifyEmptyUtil.isNotEmpty(index)) {
             return index;

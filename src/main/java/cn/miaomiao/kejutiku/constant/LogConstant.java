@@ -12,4 +12,6 @@ public class LogConstant {
     public static final String UUID_EXCEPTION = "[UUID异常]：";
     public static final String PINYIN_EXCEPTION = "[pinyin异常]：";
     public static final String ES_EXCEPTION = "[ElasticSearch异常]：";
+    public static final String HASH_EXCEPTION = "[hash异常]：";
+    public static final String REGISTER_EXCEPTION = "[注册异常]：";
 }

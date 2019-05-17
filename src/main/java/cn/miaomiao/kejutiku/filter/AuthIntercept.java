@@ -42,12 +42,9 @@ public class AuthIntercept extends HandlerInterceptorAdapter {
         }
         // 获取token
         String token = request.getHeader("authToken");
-        if (VerifyEmptyUtil.isNotEmpty(token) && redisUtil.hasKey(token)) {
-            UserLogin user = redisUtil.getObject(token, UserLogin.class);
-            if (user != null) {
-                redisUtil.expire(token, RedisConstant.TOKEN_TIMEOUT);
-                return true;
-            }
+        if (VerifyEmptyUtil.isNotEmpty(token) && redisUtil.hasKey(RedisConstant.TOKEN_KEY_PREFIX + token)) {
+            request.setAttribute("authToken", token);
+            return true;
         }
         // token 验证失败
         response.setCharacterEncoding("utf-8");

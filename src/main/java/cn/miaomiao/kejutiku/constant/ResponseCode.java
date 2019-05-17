@@ -21,9 +21,17 @@ public enum ResponseCode {
      */
     USER_NOT_LOGIN(1002, "用户未登录"),
     /**
+     * 用户名已存在
+     */
+    USER_EXIST(1003, "用户名已存在"),
+    /**
      * 参数错误
      */
     PARAM_ERROR(2000, "参数错误"),
+    /**
+     * hash异常
+     */
+    Hash_ERROR(3000, "hash异常"),
     /**
      * 参数错误
      */

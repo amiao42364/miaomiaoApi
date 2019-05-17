@@ -2,7 +2,7 @@ package cn.miaomiao.kejutiku.entity.es;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 逆水寒题库存储对象
@@ -30,7 +30,7 @@ public class NiShuiHan implements BaseEsData{
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 创建人

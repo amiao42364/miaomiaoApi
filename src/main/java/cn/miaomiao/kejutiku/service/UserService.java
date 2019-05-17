@@ -1,6 +1,8 @@
 package cn.miaomiao.kejutiku.service;
 
 import cn.miaomiao.kejutiku.entity.UserLogin;
+import cn.miaomiao.kejutiku.model.UserRo;
+import cn.miaomiao.kejutiku.model.UserVo;
 
 import java.util.List;
 
@@ -24,15 +26,25 @@ public interface UserService {
      */
     List getUsersByIds(List<Long> ids);
 
+    /**
+     * 查询
+     * @param user user
+     * @return user
+     */
     UserLogin get(UserLogin user);
 
     /**
-     * 注册用户
-     * @param username username
-     * @param password password
-     * @return boolean
+     * 查询
+     * @param token token
+     * @return user
      */
-    boolean register(String username, String password);
+    UserVo get(String token);
+
+    /**
+     * 注册用户
+     * @param user user
+     */
+    void register(UserRo user);
 
     /**
      * 登录
