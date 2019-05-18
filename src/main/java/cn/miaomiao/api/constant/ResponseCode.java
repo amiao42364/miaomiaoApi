@@ -11,11 +11,11 @@ public enum ResponseCode {
     /**
      * 成功
      */
-    SUCCESS(100, "成功"),
+    SUCCESS(200, "成功"),
     /**
      * 用户不存在或账号密码错误
      */
-    USER_NOT_FOUND_OR_PASSWORD_ERROR(1001, "用户不存在"),
+    USER_NOT_FOUND_OR_PASSWORD_ERROR(1001, "用户不存在或账号密码错误"),
     /**
      * 用户未登录
      */
@@ -31,7 +31,15 @@ public enum ResponseCode {
     /**
      * hash异常
      */
-    Hash_ERROR(3000, "hash异常"),
+    HASH_ERROR(3000, "hash异常"),
+    /**
+     * hash异常
+     */
+    TIMEOUT_ERROR(4000, "连接超时"),
+    /**
+     * hash异常
+     */
+    REDIS_TIMEOUT_ERROR(4100, "redis连接超时"),
     /**
      * 参数错误
      */

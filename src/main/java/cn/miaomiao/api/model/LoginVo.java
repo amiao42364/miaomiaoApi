@@ -22,7 +22,7 @@ public class LoginVo {
      * 密码
      */
     @NotNull
-    @Size(min = 6, max = 12)
+    @Size(min = 6, max = 24)
     private String password;
 
     /**

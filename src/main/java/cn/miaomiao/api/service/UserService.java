@@ -51,8 +51,9 @@ public interface UserService {
     /**
      * 注册用户
      * @param user user
+     * @return token
      */
-    void register(LoginVo user);
+    String register(LoginVo user);
 
     /**
      * 登录

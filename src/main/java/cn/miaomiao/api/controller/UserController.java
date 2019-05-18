@@ -30,6 +30,22 @@ public class UserController {
     private UserService userService;
 
     /**
+     * 判断是否登录
+     */
+    @RequestMapping(value = "/judge", method = RequestMethod.GET)
+    public BaseResponse judge(HttpServletRequest request) {
+        Object token = request.getAttribute("authToken");
+        if (token == null) {
+            return BaseResponse.ok();
+        }
+        UserVo user = userService.get(token.toString());
+        if (user == null) {
+            return BaseResponse.ok();
+        }
+        return BaseResponse.ok(user);
+    }
+
+    /**
      * 查询用户信息，仅能查询自己
      *
      * @param request request
@@ -52,7 +68,7 @@ public class UserController {
      * @return user
      */
     @RequestMapping(method = RequestMethod.POST)
-    public BaseResponse update(HttpServletRequest request, @RequestBody @Valid UserVo user) {
+    public BaseResponse update(HttpServletRequest request, @RequestBody UserVo user) {
         Object token = request.getAttribute("authToken");
         if (token == null) {
             return BaseResponse.error(ResponseCode.USER_NOT_LOGIN);
@@ -83,8 +99,9 @@ public class UserController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public BaseResponse register(@RequestBody @Valid LoginVo user) {
+        String token;
         try {
-            userService.register(user);
+            token = userService.register(user);
         } catch (DaoException e) {
             log.error(LogConstant.USER_EXCEPTION + "[注册失败][username]" + user.getUsername());
             return BaseResponse.error(ResponseCode.UNKNOWN_ERROR);
@@ -92,7 +109,10 @@ public class UserController {
             log.error(LogConstant.USER_EXCEPTION + e.getMessage());
             return BaseResponse.error(ResponseCode.USER_EXIST);
         }
-        return BaseResponse.ok();
+        if (VerifyEmptyUtil.isEmpty(token)) {
+            return BaseResponse.error(ResponseCode.USER_NOT_FOUND_OR_PASSWORD_ERROR);
+        }
+        return BaseResponse.ok(token);
     }
 
     /**

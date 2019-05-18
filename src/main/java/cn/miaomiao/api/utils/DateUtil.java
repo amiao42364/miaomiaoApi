@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * 时间工具类
@@ -24,6 +25,33 @@ public class DateUtil {
     private final static String[] constellationArr = new String[]{"摩羯座", "水瓶座", "双鱼座",
             "白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "摩羯座"};
     private final static String[] zodiacs = new String[]{"鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪"};
+
+    /**
+     * string转LocalDate
+     *
+     * @param time   time
+     * @param format format
+     * @return LocalDate
+     */
+    public static LocalDate stringToDate(String time, String format) {
+        LocalDate localDate;
+        try {
+            localDate = LocalDate.parse(time, DateTimeFormatter.ofPattern(format));
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+        return localDate;
+    }
+
+    /**
+     * string转LocalDate
+     *
+     * @param time time
+     * @return LocalDate
+     */
+    public static LocalDate stringToDate(String time) {
+        return stringToDate(time, StringConstant.DEFAULT_DATA_FORMAT);
+    }
 
     /**
      * 返回当前时间的string类型
@@ -54,7 +82,10 @@ public class DateUtil {
         if (VerifyEmptyUtil.isEmpty(birthday)) {
             return null;
         }
-        LocalDate birth = LocalDate.parse(birthday, DateTimeFormatter.ofPattern(StringConstant.DEFAULT_DATA_FORMAT));
+        LocalDate birth = stringToDate(birthday);
+        if (birth == null) {
+            return null;
+        }
         LocalDate now = LocalDate.now();
         Period period = Period.between(birth, now);
         return period.getYears();
@@ -70,7 +101,10 @@ public class DateUtil {
         if (VerifyEmptyUtil.isEmpty(birthday)) {
             return "";
         }
-        LocalDate birth = LocalDate.parse(birthday, DateTimeFormatter.ofPattern(StringConstant.DEFAULT_DATA_FORMAT));
+        LocalDate birth = stringToDate(birthday);
+        if (birth == null) {
+            return "";
+        }
         int month = birth.getMonthValue();
         int day = birth.getDayOfMonth();
         return day < dayArr[month - 1] ? constellationArr[month - 1] : constellationArr[month];
@@ -83,15 +117,19 @@ public class DateUtil {
      * @return 生肖
      */
     public static String getZodiac(String birthday) {
-        if (VerifyEmptyUtil.isEmpty(birthday)) {
+        if (!VerifyEmptyUtil.isEmpty(birthday)) {
+            LocalDate birth = stringToDate(birthday);
+            if (birth == null) {
+                return "";
+            }
+            int year = birth.getYear();
+            if (year < 1900) {
+                return "未知";
+            }
+            int start = 1900;
+            return zodiacs[(year - start) % zodiacs.length];
+        } else {
             return "";
         }
-        LocalDate birth = LocalDate.parse(birthday, DateTimeFormatter.ofPattern(StringConstant.DEFAULT_DATA_FORMAT));
-        int year = birth.getYear();
-        if (year < 1900) {
-            return "未知";
-        }
-        int start = 1900;
-        return zodiacs[(year - start) % zodiacs.length];
     }
 }

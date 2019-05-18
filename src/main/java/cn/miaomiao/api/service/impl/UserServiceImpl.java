@@ -6,7 +6,6 @@ import cn.miaomiao.api.dao.UserLoginDao;
 import cn.miaomiao.api.entity.UserInfo;
 import cn.miaomiao.api.entity.UserLogin;
 import cn.miaomiao.api.exception.DaoException;
-import cn.miaomiao.api.exception.HashException;
 import cn.miaomiao.api.exception.ServiceException;
 import cn.miaomiao.api.model.LoginVo;
 import cn.miaomiao.api.model.UserVo;
@@ -153,8 +152,9 @@ public class UserServiceImpl implements UserService {
             uw.set("brief", userVo.getBrief());
         }
         if (flag) {
+            uw.eq("user_id", userId);
             int result = userInfoDao.update(new UserInfo(), uw);
-            if (result != 1) {
+            if (result < 1) {
                 throw new DaoException("修改个人信息失败");
             }
         }
@@ -164,10 +164,11 @@ public class UserServiceImpl implements UserService {
      * 注册用户
      *
      * @param user user
+     * @return token
      */
     @Override
     @Transactional(rollbackFor = DaoException.class)
-    public void register(LoginVo user) {
+    public String register(LoginVo user) {
         // 先判断是否已存在该用户
         UserLogin login = get(new UserLogin(user.getUsername()));
         if (login != null) {
@@ -194,6 +195,15 @@ public class UserServiceImpl implements UserService {
         if (result != 1) {
             throw new DaoException("注册用户失败");
         }
+        // 生成token返回
+        String token;
+        try {
+            token = HmacShaUtil.getInstance().encrypt(login.getUsername(), HmacShaUtil.getInstance().createHmacKey());
+            redisUtil.set(RedisConstant.TOKEN_KEY_PREFIX + token, login.getId().toString(), RedisConstant.TOKEN_TIMEOUT);
+        } catch (Exception e) {
+            return null;
+        }
+        return token;
     }
 
     /**
@@ -212,7 +222,7 @@ public class UserServiceImpl implements UserService {
                 String token = HmacShaUtil.getInstance().encrypt(user.getUsername(), HmacShaUtil.getInstance().createHmacKey());
                 redisUtil.set(RedisConstant.TOKEN_KEY_PREFIX + token, user.getId().toString(), RedisConstant.TOKEN_TIMEOUT);
                 return token;
-            } catch (HashException e) {
+            } catch (Exception e) {
                 return null;
             }
         }
