@@ -36,7 +36,7 @@ public class AuthIntercept extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logApi(request);
         String uri = request.getRequestURI();
-        if (authConfig.getUrlList().contains(uri)) {
+        if (authConfig.getUrlList().contains(uri.replace("/api", ""))) {
             return true;
         }
         // 获取token

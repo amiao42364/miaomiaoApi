@@ -50,4 +50,12 @@
       UNIQUE KEY `uesr_id` (`uesr_id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户信息表';
     
+#### cs_go配置
+    CREATE TABLE `csgo_conf` (
+      `id` bigint(64) NOT NULL COMMENT 'id',
+      `user_id` bigint(64) NOT NULL COMMENT '用户id',
+      `start_up` text COMMENT '启动项配置',
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `user_id` (`user_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='csgo的配置';
 
