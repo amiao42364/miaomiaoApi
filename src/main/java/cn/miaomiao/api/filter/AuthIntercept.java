@@ -26,6 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class AuthIntercept extends HandlerInterceptorAdapter {
     private final Logger log = LoggerFactory.getLogger("api_info");
+
+    private final static String DEFAULT_TOMCAT_NAME = "/api";
+
     @Resource
     private AuthConfig authConfig;
 
@@ -36,7 +39,7 @@ public class AuthIntercept extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logApi(request);
         String uri = request.getRequestURI();
-        if (authConfig.getUrlList().contains(uri.replace("/api", ""))) {
+        if (authConfig.getUrlList().contains(uri.replace(DEFAULT_TOMCAT_NAME, ""))) {
             return true;
         }
         // 获取token

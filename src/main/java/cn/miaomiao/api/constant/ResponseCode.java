@@ -29,15 +29,19 @@ public enum ResponseCode {
      */
     PARAM_ERROR(2000, "参数错误"),
     /**
+     * 文件不存在
+     */
+    FILE_NOT_FIND_ERROR(2001, "文件不存在"),
+    /**
      * hash异常
      */
     HASH_ERROR(3000, "hash异常"),
     /**
-     * hash异常
+     * 超时异常
      */
     TIMEOUT_ERROR(4000, "连接超时"),
     /**
-     * hash异常
+     * redis连接超时
      */
     REDIS_TIMEOUT_ERROR(4100, "redis连接超时"),
     /**
