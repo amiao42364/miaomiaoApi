@@ -35,6 +35,7 @@ public class JsonController {
     static {
         arkTypes.put("items", "/json/ArkNightsItemData.json");
         arkTypes.put("characters", "/json/ArkNightsCharacterData.json");
+        arkTypes.put("level", "/json/ArkNightsLevelData.json");
     }
 
     /**
