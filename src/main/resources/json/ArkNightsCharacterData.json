@@ -452,7 +452,7 @@
       "sex": "女",
       "level": 5,
       "money": true,
-      "hr": false,
+      "hr": true,
       "special": "对攻击范围内所有敌人造成伤害、拥有50%的物理和法术闪避且不容易成为敌人的攻击目标",
       "tags": [
         "近战位",
@@ -473,7 +473,7 @@
       "sex": "女",
       "level": 5,
       "money": true,
-      "hr": false,
+      "hr": true,
       "special": "同时攻击阻挡的所有敌人、可以放置于远程位",
       "tags": [
         "近战位",
