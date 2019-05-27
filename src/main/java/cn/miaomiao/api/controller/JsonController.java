@@ -2,6 +2,7 @@ package cn.miaomiao.api.controller;
 
 import cn.miaomiao.api.constant.ResponseCode;
 import cn.miaomiao.api.model.BaseResponse;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -25,7 +27,24 @@ import java.util.Map;
 @RequestMapping("/json")
 @Slf4j
 public class JsonController {
-    private static final Map<String, String> arkTypes = new HashMap<>(4);
+    private static final Map<String, String> ARK_TYPES = new HashMap<>(4);
+
+    /**
+     * 明日方舟物品材料数据
+     */
+    private static final String ITEMS = "items";
+    /**
+     * 明日方舟人物数据
+     */
+    private static final String CHARACTERS = "characters";
+    /**
+     * 明日方舟等级经验数据
+     */
+    private static final String LEVEL = "level";
+    /**
+     * 明日方舟公开招募数据
+     */
+    private static final String HR = "hr";
 
     /**
      * json数据直接放到内存
@@ -33,25 +52,14 @@ public class JsonController {
     private Map<String, JSONObject> jsonMap = new HashMap<>(4);
 
     static {
-        arkTypes.put("items", "/json/ArkNightsItemData.json");
-        arkTypes.put("characters", "/json/ArkNightsCharacterData.json");
-        arkTypes.put("level", "/json/ArkNightsLevelData.json");
+        ARK_TYPES.put(ITEMS, "/json/ArkNightsItemData.json");
+        ARK_TYPES.put(CHARACTERS, "/json/ArkNightsCharacterData.json");
+        ARK_TYPES.put(LEVEL, "/json/ArkNightsLevelData.json");
+        ARK_TYPES.put(HR, "/json/ArkNightsCharacterData.json");
     }
 
     /**
-     * 获取明日方舟人物数据
-     *
-     * @return characters
-     */
-    @RequestMapping("/ark/characters")
-    public BaseResponse getArkCharacters() {
-
-
-        return BaseResponse.ok();
-    }
-
-    /**
-     * 获取明日方舟物品数据
+     * 获取明日方舟数据
      *
      * @return items
      */
@@ -61,8 +69,8 @@ public class JsonController {
             return BaseResponse.ok(jsonMap.get(type));
         }
 
-        String path = arkTypes.get(type);
-        if(path == null){
+        String path = ARK_TYPES.get(type);
+        if (path == null) {
             return BaseResponse.error(ResponseCode.FILE_NOT_FIND_ERROR);
         }
 
@@ -73,6 +81,28 @@ public class JsonController {
             file = resource.getFile();
             String fileStr = FileUtils.readFileToString(file, "utf-8");
             obj = JSONObject.parseObject(fileStr);
+            if (CHARACTERS.equals(type) || HR.equals(type)) {
+                for (Map.Entry<String, Object> entry : obj.entrySet()) {
+                    JSONArray array = (JSONArray) entry.getValue();
+                    Iterator it = array.iterator();
+                    while (it.hasNext()) {
+                        Object next = it.next();
+                        if (next instanceof JSONObject) {
+                            JSONObject character = (JSONObject) next;
+                            if (CHARACTERS.equals(type)) {
+                                if (!(boolean) character.get("money")) {
+                                    it.remove();
+                                }
+                            } else {
+                                if (!(boolean) character.get("hr")) {
+                                    it.remove();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
         } catch (IOException e) {
             log.error("[json数据异常][type]" + type + "[exception]" + e.getMessage());
         }
