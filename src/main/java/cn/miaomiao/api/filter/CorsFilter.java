@@ -25,7 +25,8 @@ public class CorsFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
 
-        response.setHeader("Access-Control-Allow-Origin", "http://shuijiaomiao.com, http://www.shuijiaomiao.com");
+        response.setHeader("Access-Control-Allow-Origin", "http://shuijiaomiao.com");
+        response.setHeader("Access-Control-Allow-Origin", "http://www.shuijiaomiao.com");
 
         response.setHeader("Access-Control-Allow-Headers", "authToken, content-type");
         // 允许跨域的请求方法类型
