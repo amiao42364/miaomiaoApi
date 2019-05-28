@@ -41,11 +41,11 @@ public class MvcConfig extends WebMvcConfigurationSupport {
                 .excludePathPatterns("/error");
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedHeaders("Accept, Origin, authToken, content-type")
-                .allowedMethods("PUT, POST, GET, DELETE, OPTIONS")
-                .allowedOrigins("http://shuijiaomao.com, http://www.shuijiaomao.com");
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedHeaders("Accept, Origin, authToken, content-type")
+//                .allowedMethods("PUT, POST, GET, DELETE, OPTIONS")
+//                .allowedOrigins("http://shuijiaomao.com, http://www.shuijiaomao.com");
+//    }
 }
