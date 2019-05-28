@@ -15,6 +15,11 @@ import java.io.IOException;
  */
 @Component
 public class CorsFilter implements Filter {
+
+    private static final String ALLOW_ORIGIN_STR = "Access-Control-Allow-Origin";
+    private static final String ALLOW_ORIGIN_1 = "http://shuijiaomiao.com";
+    private static final String ALLOW_ORIGIN_2 = "http://www.shuijiaomiao.com";
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -25,8 +30,10 @@ public class CorsFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
 
-        response.setHeader("Access-Control-Allow-Origin", "http://shuijiaomiao.com");
-        response.setHeader("Access-Control-Allow-Origin", "http://www.shuijiaomiao.com");
+        if (ALLOW_ORIGIN_1.equals(((HttpServletRequest) req).getHeader(ALLOW_ORIGIN_STR))
+                || ALLOW_ORIGIN_2.equals(((HttpServletRequest) req).getHeader(ALLOW_ORIGIN_STR))) {
+            response.setHeader("Access-Control-Allow-Origin", ((HttpServletRequest) req).getHeader(ALLOW_ORIGIN_STR));
+        }
 
         response.setHeader("Access-Control-Allow-Headers", "authToken, content-type");
         // 允许跨域的请求方法类型
