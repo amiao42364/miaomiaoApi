@@ -40,12 +40,4 @@ public class MvcConfig extends WebMvcConfigurationSupport {
         registry.addInterceptor(authIntercept).addPathPatterns("/**")
                 .excludePathPatterns("/error");
     }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedHeaders("authToken, content-type")
-                .allowedMethods("PUT,POST,GET,DELETE,OPTIONS")
-                .allowedOrigins("http://shuijiaomao.com, http://www.shuijiaomao.com");
-    }
 }
