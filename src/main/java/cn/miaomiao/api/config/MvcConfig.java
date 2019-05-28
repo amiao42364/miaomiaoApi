@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 /**
  * 拦截器
+ *
  * @author miaomiao
  * @date 2019/4/25 16:19
  */
@@ -37,6 +38,14 @@ public class MvcConfig extends WebMvcConfigurationSupport {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authIntercept).addPathPatterns("/**")
-        .excludePathPatterns("/error");
+                .excludePathPatterns("/error");
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedHeaders("authToken, content-type")
+                .allowedMethods("PUT,POST,GET,DELETE,OPTIONS")
+                .allowedOrigins("http://shuijiaomao.com, http://www.shuijiaomao.com");
     }
 }
