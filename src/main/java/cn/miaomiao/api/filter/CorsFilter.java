@@ -25,12 +25,11 @@ public class CorsFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpServletRequest request = (HttpServletRequest) req;
 
-        // TODO 待域名下来更改
-        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Origin", "http://shuijiaomiao.com, http://www.shuijiaomiao.com");
 
         response.setHeader("Access-Control-Allow-Headers", "authToken, content-type");
         // 允许跨域的请求方法类型
-        response.setHeader("Access-Control-Allow-Methods", "http://shuijiaomiao.com, http://www.shuijiaomiao.com");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
         // 预检命令（OPTIONS）缓存时间，单位：秒
         response.setHeader("Access-Control-Max-Age", "3600");
 
