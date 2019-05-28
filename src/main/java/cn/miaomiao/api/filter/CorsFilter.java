@@ -30,7 +30,7 @@ public class CorsFilter implements Filter {
 
         response.setHeader("Access-Control-Allow-Headers", "authToken, content-type");
         // 允许跨域的请求方法类型
-        response.setHeader("Access-Control-Allow-Methods", "http://47.101.154.8, http://www.shuijiaomiao.com");
+        response.setHeader("Access-Control-Allow-Methods", "http://www.shuijiaomiao.com");
         // 预检命令（OPTIONS）缓存时间，单位：秒
         response.setHeader("Access-Control-Max-Age", "3600");
 
