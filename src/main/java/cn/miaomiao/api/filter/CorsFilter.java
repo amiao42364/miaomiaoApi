@@ -17,8 +17,8 @@ import java.io.IOException;
 public class CorsFilter implements Filter {
 
     private static final String ALLOW_ORIGIN_STR = "Access-Control-Allow-Origin";
-    private static final String ALLOW_ORIGIN_1 = "http://shuijiaomiao.com";
-    private static final String ALLOW_ORIGIN_2 = "http://www.shuijiaomiao.com";
+    private static final String ALLOW_ORIGIN_1 = "http://shuijiaomao.com";
+    private static final String ALLOW_ORIGIN_2 = "http://www.shuijiaomao.com";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
