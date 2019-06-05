@@ -39,7 +39,7 @@ public class MajsoulController {
         return BaseResponse.ok(cards);
     }
 
-    @RequestMapping(value = "/moqie", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public BaseResponse uploadMajsoulCard(@RequestBody MajsoulCard card) {
         String result = majsoulService.upload(card);
         if (!StringConstant.SUCCESS_STR.equals(result)) {

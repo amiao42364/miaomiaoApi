@@ -6,6 +6,7 @@ import cn.miaomiao.api.dao.MajsoulCardDao;
 import cn.miaomiao.api.entity.MajsoulCard;
 import cn.miaomiao.api.entity.MajsoulCardAnswer;
 import cn.miaomiao.api.service.MajsoulService;
+import cn.miaomiao.api.utils.VerifyEmptyUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -115,11 +116,29 @@ public class MajsoulServiceImpl implements MajsoulService {
 
     /**
      * 校验牌谱
+     *
      * @param card card
      * @return result
      */
     private String validCard(MajsoulCard card) {
+        // 关键字段判空
+        if (VerifyEmptyUtil.isEmpty(card.getCard())) {
+            return "牌谱为空？";
+        }
 
+        // 基础牌谱，本家牌必须13张
+        if (1 == card.getType()) {
+            if(28 != card.getCard().length()){
+                return "必须14张牌";
+            }
+            // 判断是否只存在m p s z
+
+            // 判断是否胡牌
+
+        } else {
+            // 高级牌谱
+
+        }
 
         return StringConstant.SUCCESS_STR;
     }
