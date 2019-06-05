@@ -45,6 +45,14 @@ public enum ResponseCode {
      */
     REDIS_TIMEOUT_ERROR(4100, "redis连接超时"),
     /**
+     * 雀魂牌谱不存在
+     */
+    MAJSOUL_NOT_FIND(5100, "雀魂牌谱不存在"),
+    /**
+     * 雀魂牌谱上传失败
+     */
+    MAJSOUL_UPLOAD_FAILED(5101, "雀魂牌谱上传失败"),
+    /**
      * 参数错误
      */
     UNKNOWN_ERROR(9999, "未知错误");

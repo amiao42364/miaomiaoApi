@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.miaomiao.api.dao.MajsoulCardDao">
+
+    <!--获取随机数量的题目-->
+    <select id="getRandom" resultType="cn.miaomiao.api.entity.MajsoulCard">
+        select id, card, score, session, creator, created
+        from majsoul_card
+        where id >= (
+            (select max(id) from majsoul_card)
+            - (select min(id) from majsoul_card)
+          )
+          * rand()
+          + (select min(id) FROM majsoul_card)
+        limit #{limit}
+    </select>
+
+    <!--获取指定位置指定数量的题目-->
+    <select id="getNext" resultType="cn.miaomiao.api.entity.MajsoulCard">
+        select id, card, score, session, creator, created
+        from majsoul_card
+        where id >= #{curId}
+        limit #{limit}
+    </select>
+</mapper>

@@ -8,7 +8,7 @@ public class RedisConstant {
     /**
      * redis默认缓存时间
      */
-    public static final Long DEFAULT_TIMEOUT = 60L * 30L;
+    public static final Long DEFAULT_TIMEOUT = 3600L * 24L * 7L;
 
     /**
      * token缓存时间
@@ -34,4 +34,9 @@ public class RedisConstant {
      * 标记用户上次修改昵称的时间
      */
     public static final String FLAG_MODIFY_NICKNAME = "flagModifyNickName_";
+
+    /**
+     * 雀魂麻将模切牌谱总数
+     */
+    public static final String MAJSOUL_ALL_COUNT = "majsoulAllCount";
 }

@@ -6,6 +6,7 @@ package cn.miaomiao.api.constant;
  */
 public class StringConstant {
     public static final String EMPTY_STR = "";
+    public static final String SUCCESS_STR = "success";
     public static final String ALL_CHAR = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     public static final String DEFAULT_DATA_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String DEFAULT_DATA_FORMAT = "yyyy-MM-dd";

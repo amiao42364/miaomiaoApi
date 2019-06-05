@@ -40,6 +40,6 @@ public class SpringbootApplication extends SpringBootServletInitializer implemen
      */
     @Override
     public void run(String... args) {
-        nettyBootstrap.start();
+//        nettyBootstrap.start();
     }
 }

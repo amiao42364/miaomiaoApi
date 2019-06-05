@@ -13,16 +13,29 @@ import java.util.Random;
  */
 public class CommonTest {
     public static void main(String[] args) {
-        System.out.println(UUID.getInstance().id());
-
-        String timeStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-        System.out.println(timeStr);
-        System.out.println(DateUtil.nowDateStr());
-
-        System.out.println(randomFileName());
-
-        System.out.println(DateUtil.getZodiac("1992-01-22"));
-        System.out.println(DateUtil.getConstellation("1992-01-22"));
+//        System.out.println(UUID.getInstance().id());
+//
+//        String timeStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+//        System.out.println(timeStr);
+//        System.out.println(DateUtil.nowDateStr());
+//
+//        System.out.println(randomFileName());
+//
+//        System.out.println(DateUtil.getZodiac("1992-01-22"));
+//        System.out.println(DateUtil.getConstellation("1992-01-22"));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
+        System.out.println(RandomUtil.getRandom(5));
     }
 
     private static String randomFileName(){
