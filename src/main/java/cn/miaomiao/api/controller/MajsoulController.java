@@ -24,16 +24,15 @@ public class MajsoulController {
     private MajsoulService majsoulService;
 
     /**
-     * 获取模切下一题
+     * 随机获取模切题目
      *
-     * @param type  1：随机获取，2：顺序获取
-     * @param curId 当前id
+     * @param limit 数量
      * @return BaseResponse
      */
-    @RequestMapping(value = "/moqie", method = RequestMethod.GET)
-    public BaseResponse getMajsoulCard(@RequestParam int type, @RequestParam int curId) {
-        List<MajsoulCard> cards = majsoulService.get(type, curId, 10);
-        if (cards.size() <= 0) {
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public BaseResponse getMajsoulCard(@RequestParam int limit) {
+        List<MajsoulCard> cards = majsoulService.get(limit);
+        if (cards == null || cards.size() <= 0) {
             return BaseResponse.error(ResponseCode.MAJSOUL_NOT_FIND);
         }
         return BaseResponse.ok(cards);

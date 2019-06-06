@@ -32,21 +32,13 @@ public class MajsoulServiceImpl implements MajsoulService {
     /**
      * 获取模切牌谱
      *
-     * @param type  1：随机获取，2：顺序获取
-     * @param curId 当前id
      * @param limit 获取题目的数量
      * @return MajsoulCard
      */
     @Override
-    public List<MajsoulCard> get(Integer type, Integer curId, Integer limit) {
-        List<MajsoulCard> cards;
-        if (1 == type) {
-            cards = cardDao.getNext(curId, limit);
-        } else {
-            cards = cardDao.getRandom(limit);
-        }
-
-        if (cards == null) {
+    public List<MajsoulCard> get(Integer limit) {
+        List<MajsoulCard> cards = cardDao.getRandom(limit);
+        if (cards == null || cards.size() <= 0) {
             return null;
         }
         // 获取所有题目的答案
@@ -54,7 +46,7 @@ public class MajsoulServiceImpl implements MajsoulService {
         QueryWrapper<MajsoulCardAnswer> qw = new QueryWrapper<>();
         qw.in("card_id", ids);
         List<MajsoulCardAnswer> allAnswers = answerDao.selectList(qw);
-        if (allAnswers == null) {
+        if (allAnswers == null || allAnswers.size() <= 0) {
             return cards;
         }
         // 组装答案
@@ -128,7 +120,7 @@ public class MajsoulServiceImpl implements MajsoulService {
 
         // 基础牌谱，本家牌必须13张
         if (1 == card.getType()) {
-            if(28 != card.getCard().length()){
+            if (28 != card.getCard().length()) {
                 return "必须14张牌";
             }
             // 判断是否只存在m p s z

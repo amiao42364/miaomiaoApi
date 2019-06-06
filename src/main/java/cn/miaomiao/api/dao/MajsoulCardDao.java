@@ -19,13 +19,4 @@ public interface MajsoulCardDao extends BaseMapper<MajsoulCard> {
      * @return list
      */
     List<MajsoulCard> getRandom(@Param("limit") Integer limit);
-
-    /**
-     * 获取指定位置指定数量的题目
-     *
-     * @param curId 位置
-     * @param limit 数量
-     * @return list
-     */
-    List<MajsoulCard> getNext(@Param("curId") Integer curId, @Param("limit") Integer limit);
 }
