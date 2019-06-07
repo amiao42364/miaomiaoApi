@@ -1,5 +1,6 @@
 package cn.miaomiao.api.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -35,12 +36,12 @@ public class MajsoulCardAnswer implements Serializable {
     /**
      * 切出去的牌
      */
-    private String key;
+    private String keyCard;
 
     /**
      * 为何这样切描述
      */
-    private String desc;
+    private String keyDesc;
 
     /**
      * 该答案支持的人数

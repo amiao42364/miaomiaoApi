@@ -6,10 +6,12 @@ import cn.miaomiao.api.dao.MajsoulCardDao;
 import cn.miaomiao.api.entity.MajsoulCard;
 import cn.miaomiao.api.entity.MajsoulCardAnswer;
 import cn.miaomiao.api.service.MajsoulService;
+import cn.miaomiao.api.utils.UUID;
 import cn.miaomiao.api.utils.VerifyEmptyUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -66,6 +68,7 @@ public class MajsoulServiceImpl implements MajsoulService {
      * @return success成功
      */
     @Override
+    @Transactional
     public String upload(MajsoulCard card) {
         // 验证数据格式
         String result = validCard(card);
@@ -77,8 +80,12 @@ public class MajsoulServiceImpl implements MajsoulService {
             // 新增前判断是否存在该牌谱
             QueryWrapper<MajsoulCard> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("card", card.getCard());
-            queryWrapper.eq("score", card.getScore());
-            queryWrapper.eq("session", card.getSession());
+            if (VerifyEmptyUtil.isNotEmpty(card.getScore())) {
+                queryWrapper.eq("score", card.getScore());
+            }
+            if (VerifyEmptyUtil.isNotEmpty(card.getSession())) {
+                queryWrapper.eq("session", card.getSession());
+            }
             queryWrapper.last("limit 1");
             MajsoulCard majsoulCard = cardDao.selectOne(queryWrapper);
             if (majsoulCard != null) {
@@ -92,16 +99,19 @@ public class MajsoulServiceImpl implements MajsoulService {
         }
         // 暂只支持一次提交一个答案
         MajsoulCardAnswer answer = answers.get(0);
-        answer.setCardId(card.getId());
         // 判断该答案是否存在
         QueryWrapper<MajsoulCardAnswer> qw = new QueryWrapper<>();
+        qw.select("id");
         qw.eq("card_id", card.getId());
-        qw.eq("key", answer.getKey());
+        qw.eq("key_card", answer.getKeyCard());
         qw.last("limit 1");
         MajsoulCardAnswer obj = answerDao.selectOne(qw);
         if (obj != null) {
             return "已存在该答案";
         }
+        answer.setId(UUID.getInstance().id());
+        answer.setCardId(card.getId());
+        answer.setCreator(card.getCreator());
         answerDao.insert(answer);
         return StringConstant.SUCCESS_STR;
     }
