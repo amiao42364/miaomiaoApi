@@ -13,10 +13,9 @@ public interface MajsoulService {
     /**
      * 获取模切牌谱
      *
-     * @param limit 获取题目的数量
      * @return MajsoulCard
      */
-    List<MajsoulCard> get(Integer limit);
+    MajsoulCard get();
 
     /**
      * 上传模切牌谱

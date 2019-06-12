@@ -1,11 +1,13 @@
 package cn.miaomiao.api.service.impl;
 
+import cn.miaomiao.api.constant.RedisConstant;
 import cn.miaomiao.api.constant.StringConstant;
 import cn.miaomiao.api.dao.MajsoulCardAnswerDao;
 import cn.miaomiao.api.dao.MajsoulCardDao;
 import cn.miaomiao.api.entity.MajsoulCard;
 import cn.miaomiao.api.entity.MajsoulCardAnswer;
 import cn.miaomiao.api.service.MajsoulService;
+import cn.miaomiao.api.utils.RedisUtil;
 import cn.miaomiao.api.utils.UUID;
 import cn.miaomiao.api.utils.VerifyEmptyUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -14,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -31,34 +35,35 @@ public class MajsoulServiceImpl implements MajsoulService {
     @Resource
     private MajsoulCardAnswerDao answerDao;
 
+    @Resource
+    private RedisUtil redisUtil;
+
     /**
      * 获取模切牌谱
      *
-     * @param limit 获取题目的数量
      * @return MajsoulCard
      */
     @Override
-    public List<MajsoulCard> get(Integer limit) {
-        List<MajsoulCard> cards = cardDao.getRandom(limit);
-        if (cards == null || cards.size() <= 0) {
-            return null;
+    public MajsoulCard get() {
+        // 先从缓存中获取牌谱
+        MajsoulCard card = redisUtil.lPop(RedisConstant.MAJSOUL_CARDS, MajsoulCard.class);
+        if (card == null) {
+            // 从数据查询
+            List<MajsoulCard> cards = cardDao.getRandom(100);
+            redisUtil.lSet(RedisConstant.MAJSOUL_CARDS, cards);
+            card = redisUtil.lPop(RedisConstant.MAJSOUL_CARDS, MajsoulCard.class);
         }
-        // 获取所有题目的答案
-        List<Integer> ids = cards.stream().map(MajsoulCard::getId).collect(Collectors.toList());
+
+        // 获取题目的答案
         QueryWrapper<MajsoulCardAnswer> qw = new QueryWrapper<>();
-        qw.in("card_id", ids);
+        qw.eq("card_id", card.getId());
         List<MajsoulCardAnswer> allAnswers = answerDao.selectList(qw);
         if (allAnswers == null || allAnswers.size() <= 0) {
-            return cards;
+            return card;
         }
         // 组装答案
-        for (MajsoulCard card : cards) {
-            List<MajsoulCardAnswer> answers = allAnswers.stream()
-                    .filter(answer -> answer.getCardId().equals(card.getId()))
-                    .collect(Collectors.toList());
-            card.setAnswers(answers);
-        }
-        return cards;
+        card.setAnswers(allAnswers);
+        return card;
     }
 
     /**

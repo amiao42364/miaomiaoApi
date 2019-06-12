@@ -277,6 +277,16 @@ public class RedisUtil {
         return result;
     }
 
+    public <T> T lPop(String key, Class<T> clazz){
+        String object = stringRedisTemplate.opsForList().leftPop(key);
+        try {
+            return JSONObject.parseObject(object, clazz);
+        } catch (Exception e) {
+            log.error(LogConstant.REDIS_EXCEPTION + e.getMessage());
+            return null;
+        }
+    }
+
     /**
      * 写入集合
      */

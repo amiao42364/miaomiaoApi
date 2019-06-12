@@ -34,16 +34,15 @@ public class MajsoulController {
     /**
      * 随机获取模切题目
      *
-     * @param limit 数量
      * @return BaseResponse
      */
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public BaseResponse getMajsoulCard(@RequestParam int limit) {
-        List<MajsoulCard> cards = majsoulService.get(limit);
-        if (cards == null || cards.size() <= 0) {
+    public BaseResponse getMajsoulCard() {
+        MajsoulCard card = majsoulService.get();
+        if (card == null) {
             return BaseResponse.error(ResponseCode.MAJSOUL_NOT_FIND);
         }
-        return BaseResponse.ok(cards);
+        return BaseResponse.ok(card);
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)

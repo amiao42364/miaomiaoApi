@@ -39,4 +39,9 @@ public class RedisConstant {
      * 雀魂麻将模切牌谱总数
      */
     public static final String MAJSOUL_ALL_COUNT = "majsoulAllCount";
+
+    /**
+     * 雀魂麻将牌谱
+     */
+    public static final String MAJSOUL_CARDS = "majsoulCards";
 }
