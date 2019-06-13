@@ -37,7 +37,7 @@ public class AuthIntercept extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9099");
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
         response.setHeader("Access-Control-Allow-Headers","Accept, Origin, authToken, Content-Type");
 
