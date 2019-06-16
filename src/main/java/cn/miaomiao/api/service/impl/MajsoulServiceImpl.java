@@ -93,10 +93,11 @@ public class MajsoulServiceImpl implements MajsoulService {
             }
             queryWrapper.last("limit 1");
             MajsoulCard majsoulCard = cardDao.selectOne(queryWrapper);
-            if (majsoulCard != null) {
-                return "已存在该牌谱，序号为" + majsoulCard.getId();
+            if (majsoulCard == null) {
+                cardDao.insert(card);
+            }else{
+                card.setId(majsoulCard.getId());
             }
-            cardDao.insert(card);
         }
         List<MajsoulCardAnswer> answers = card.getAnswers();
         if (answers == null) {
